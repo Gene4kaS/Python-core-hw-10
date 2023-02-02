@@ -48,7 +48,7 @@ def find_phone(key):
 @input_error
 def show_all_funk():
     contact = ""
-    for name, record in contacts.get_all_records().items():
+    for name, record in contacts.data.items():
         contact += f"{record.get_info()}\n"
     return contact
 

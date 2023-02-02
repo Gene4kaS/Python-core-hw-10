@@ -19,10 +19,9 @@ class Record:
         self.phones = []
 
     def get_info(self):
-        phon_info = ""
         for phon in self.phones:
-            phon_info += f"{phon.value}, "
-        return f"{self.name.value} : {phon_info[:-2]}"
+            phon_info = "".join(f"{phon.value}")
+        return f"{self.name.value} : {phon_info}"
 
     def add_phone(self, phon):
         self.phones.append(Phone(phon))
@@ -45,24 +44,18 @@ class AddressBook(UserDict):
     def add_record(self, record):
         self.data[record.name.value] = record
 
-    def get_all_records(self):
-        return self.data
-
     def has_record(self, name):
-        return bool(self.data.get(name))
-
-    def get_record(self, name):
-        return self.data.get(name)
+        for name in self.data:
+            return bool(self.data.get(name))
 
     def remove_record(self, name):
-        del self.data[name]
-
+       del self.data[name]
 
     def search(self, value):
         if self.has_record(value):
-            return self.get_record(value)
+            return self.data.get(value)
 
-        for record in self.get_all_records().values():
+        for record in self.data.values():
             for phone in record.phones:
                 if phone.value == value:
                     return record
